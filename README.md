@@ -3,10 +3,10 @@ This repository provides the implemention for the paper Multi-scale Protein Feat
 Please cite our paper if our datasets or code are helpful to you ~ 😊
 
 ## Requirements
-* Python 3.7
-* Pytorch 1.12.0
+* Python 3.9
+* Pytorch 1.12.1
+* Transformers 4.21.3
 
 * ## Dataset
 * [SKEMPI]Given in the dataset folder.
 * [MPAD](http://compbio.clemson.edu/SAAMBE-MEM & https://web.iitm.ac.in/bioinfo2/mpad)
-  
