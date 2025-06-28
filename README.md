@@ -8,8 +8,8 @@ Please cite our paper if our datasets or code are helpful to you ~ 😊
 * Transformers 4.21.3
 
 ## Dataset
-* [SKEMPI]Given in the dataset folder.
-* [MPAD](http://compbio.clemson.edu/SAAMBE-MEM & https://web.iitm.ac.in/bioinfo2/mpad)
+* [SKEMPI] Given in the dataset folder.
+* [MPAD]  (http://compbio.clemson.edu/SAAMBE-MEM & https://web.iitm.ac.in/bioinfo2/mpad)
 
 ## Protein LLM Settings
 * Download [pytorch_model.bin](https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link) and unzip the file in folder ./model/protein_llm/.
