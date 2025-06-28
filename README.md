@@ -12,7 +12,7 @@ Please cite our paper if our datasets or code are helpful to you ~ 😊
 * [MPAD](http://compbio.clemson.edu/SAAMBE-MEM & https://web.iitm.ac.in/bioinfo2/mpad)
 
 ## Protein LLM Settings
-* Download and unzip the file pytorch_model.bin(https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link) in folder ./model/protein_llm/
+* Download and unzip the file [pytorch_model.bin](https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link) in folder ./model/protein_llm/
 
 ## Training & Evaluation for Ten-Fold-Cross-Validation
 ```bash
