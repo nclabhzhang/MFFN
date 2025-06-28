@@ -13,4 +13,15 @@ Please cite our paper if our datasets or code are helpful to you ~ 😊
 
 ## Protein LLM Settings
 * Download and unzip the file 'pytorch_model.bin' in folder ./model/protein_llm/
-* [pytorch_model.bin](https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link)
+
+[pytorch_model.bin](https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link)
+
+## Training & Evaluation for Ten-Fold-Cross-Validation
+```bash
+python main.py
+```
+
+## Acknowledgements
+MFFEN builds upon the source code from the project.
+
+We thank their contributors and maintainers!
