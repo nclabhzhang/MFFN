@@ -3,11 +3,10 @@ import torch
 from torch import manual_seed
 from torch.cuda import manual_seed_all
 from random import seed
-from joblib import load, dump
 from time import localtime, strftime, time
-from math import isnan, sqrt
+from math import sqrt
 from os.path import exists
-from os import mkdir, listdir, makedirs
+from os import makedirs
 
 def set_random_seed(seed_num):
     torch.cuda.manual_seed(seed_num)
@@ -25,39 +24,17 @@ def timestamp():
 
 def make_save_dir(time_stamp):
     save_path = './ckpt/'+time_stamp
-    adam_path = './optimizers/'+time_stamp
+    opt_path = './optimizers/'+time_stamp
     result_path = './result/'+time_stamp
     if not exists(save_path):
         makedirs(save_path)
         print(f"made dir {save_path}")
-    if not exists(adam_path):
-        makedirs(adam_path)
-        print(f"made dir {adam_path}")
+    if not exists(opt_path):
+        makedirs(opt_path)
+        print(f"made dir {opt_path}")
     if not exists(result_path):
         makedirs(result_path)
         print(f"made dir {result_path}")
-
-def write_result(time_stamp, mainFile='main_pp.py', modelFile='network.py'):
-    f_main = open(mainFile, "r")
-    main_python_code = f_main.readlines()
-    f_result = open("./result/"+time_stamp+"/result", "a+")
-    f_result.write("\n\"\"\"\n\n\"\"\"\n")
-    if modelFile != '':
-        f_model = open(modelFile)
-        model_python_code = f_model.readlines()
-        f_result.writelines(model_python_code)
-        f_result.write("\n\n")
-    f_result.writelines(main_python_code)
-    f_main.close()
-    f_result.close()
-    
-def write_test_result(time_stamp,result_to_show):
-    print(result_to_show)
-    f_result = open("./result/"+time_stamp+"/result", "r+")
-    old_content = f_result.read()
-    f_result.seek(0, 0)
-    f_result.write("# "+result_to_show+'\n'+old_content)
-    f_result.close()
 
 def calc_std_dev(lst):
     n = len(lst)
