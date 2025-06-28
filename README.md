@@ -12,5 +12,5 @@ Please cite our paper if our datasets or code are helpful to you ~ 😊
 * [MPAD](http://compbio.clemson.edu/SAAMBE-MEM & https://web.iitm.ac.in/bioinfo2/mpad)
 
 ## Protein LLM Settings
-* 
-* https://huggingface.co/Rostlab/prot_t5_xl_uniref50/tree/main
+* [pytorch_model.bin]https://drive.google.com/file/d/1ZXpWZELAmTC9IfqpMYQ16BUUUfIanYpv/view?usp=drive_link
+* Download and unzip in folder ./model/protein_llm/
