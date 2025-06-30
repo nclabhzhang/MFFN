@@ -1,5 +1,5 @@
 # MFFEN
-This repository provides the implemention for the paper Multi-scale Feature Fusion Extraction Framework for Predicting Protein-Protein Binding Afinity Changes upon Mutations.
+This repository provides the implemention for the paper Multi-scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations.
 
 Please cite our paper if our datasets or code are helpful to you ~ 😊
 
