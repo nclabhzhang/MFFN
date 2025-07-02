@@ -318,7 +318,7 @@ if __name__ == '__main__':
 
     # # processing skempi-2398
     # generateProcessedCSV('../data/skempi_v2.csv', '../data/processed_v2.CSV')
-    # generateSequenceData('../data/processed_v2.CSV', '../data/mapping/skempi', '../data/SequenceData_skempi')
+    # generateSequenceData('../data/processed_v2.CSV', '../data/mapping', '../data/SequenceData_skempi')
     # chain_DDG_list = get_raw_chain_DDG_list_skempi2398('../data/SequenceData_skempi')
     # generate_10_folds_dataset(chain_DDG_list, '../data/S2398')
     # get_tensor_DDG_list('../data/S2398/chain_DDG_list_train', f'../data/embedding_dict_skempi',
