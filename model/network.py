@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
-from model.dataset import embedding_len
+from model.dataset import embedding_dim, hidden_size
 
-class MFFEN(nn.Module):
+class MFFN(nn.Module):
     def __init__(self):
-        super(MFFEN, self).__init__()
+        super(MFFN, self).__init__()
         self.conv0 = nn.Sequential(  # input_dim-->[batch*3, 1024, 500]
-            nn.Conv1d(in_channels=embedding_len, out_channels=128, kernel_size=3, stride=1, padding=1),
+            nn.Conv1d(in_channels=embedding_dim, out_channels=128, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),  # output_dim-->[batch*3, 128, 500]
             nn.Conv1d(in_channels=128, out_channels=80, kernel_size=49, stride=1, padding=30),
             nn.ReLU(),
@@ -25,14 +25,14 @@ class MFFEN(nn.Module):
             nn.ReLU()
         )
 
-        self.pooler = nn.Sequential(nn.Linear(embedding_len, embedding_len), nn.Tanh())
+        self.pooler = nn.Sequential(nn.Linear(embedding_dim, embedding_dim), nn.Tanh())
         self.relu = nn.ReLU()
 
         # Fully connected layer to shink AB
         self.fc_AB = nn.Sequential(
             nn.Dropout(p=0.2),
-            nn.Linear(embedding_len * 2, int(embedding_len / 2)),
-            nn.BatchNorm1d(int(embedding_len / 2)),
+            nn.Linear(embedding_dim * 2, int(embedding_dim / 2)),
+            nn.BatchNorm1d(int(embedding_dim / 2)),
             nn.ReLU()
         )
 
@@ -41,8 +41,7 @@ class MFFEN(nn.Module):
         # Transformer Encoder layer to aggregate information from protein complex pair P,Q
         self.attention_PQ = nn.MultiheadAttention(embed_dim=2, num_heads=1, batch_first=True)
 
-        hidden_size = 512
-        self.GRU = nn.GRU(embedding_len, hidden_size, batch_first=True, bidirectional=True)
+        self.GRU = nn.GRU(embedding_dim, hidden_size, batch_first=True, bidirectional=True)
         self.gru_query = nn.Linear(hidden_size*2, 1, bias=False)
         self.conv3 = nn.Sequential(
             nn.Conv1d(in_channels=128, out_channels=96, kernel_size=1, stride=1),
@@ -53,7 +52,7 @@ class MFFEN(nn.Module):
 
         self.fc = nn.Sequential(
             nn.Dropout(p=0.2),
-            nn.Linear(embedding_len*2 + embedding_len*2 + embedding_len, 64),
+            nn.Linear(embedding_dim*2 + embedding_dim*2 + embedding_dim, 64),
             nn.ReLU(),
             nn.Linear(64, 8),
             nn.ReLU(),
@@ -61,25 +60,25 @@ class MFFEN(nn.Module):
         )
 
     def forward(self, data, _):
-        data = data.view(-1, 500, embedding_len)  # (batch_size*3, 500, embedding_len)
-        CLS = data[:, 0].squeeze()  # (batch_size*3, embedding_len)
-        CLS = self.pooler(CLS)  # the equivalent implementation of Bert-pooler moudle, (batch_size*3, embedding_len)
-        CLS = CLS.view(-1, 3, embedding_len)  # (batch_size, 3, embedding_len)
+        data = data.view(-1, 500, embedding_dim)  # (batch_size*3, 500, embedding_dim)
+        CLS = data[:, 0].squeeze()  # (batch_size*3, embedding_dim)
+        CLS = self.pooler(CLS)  # the equivalent implementation of Bert-pooler moudle, (batch_size*3, embedding_dim)
+        CLS = CLS.view(-1, 3, embedding_dim)  # (batch_size, 3, embedding_dim)
         CLS = CLS / torch.mean(self.relu(CLS), dim=2, keepdim=True) * 2
-        A = CLS[:, 0]  # (batch_size, embedding_len)
+        A = CLS[:, 0]  # (batch_size, embedding_dim)
         B = CLS[:, 1]
         B_MUT = CLS[:, 2]
         # Present in the form of [A-B,A-B',A-B,A-B'...], and the aggregate information from protein A and B
-        AB__AB_MUT = torch.stack((torch.stack((A, B), dim=2), torch.stack((A, B_MUT), dim=2)), dim=1).view(-1, 2*embedding_len, 2)  # (batch_size, 2*embedding_len, 2)
+        AB__AB_MUT = torch.stack((torch.stack((A, B), dim=2), torch.stack((A, B_MUT), dim=2)), dim=1).view(-1, 2*embedding_dim, 2)  # (batch_size, 2*embedding_dim, 2)
         AB__AB_MUT = self.attention_AB(AB__AB_MUT, AB__AB_MUT, AB__AB_MUT, need_weights=False)[0]
-        AB__AB_MUT = AB__AB_MUT.reshape(-1, 2 * embedding_len)  # (batch_size*2, 2*embedding_len)
-        AB__AB_MUT = self.fc_AB(AB__AB_MUT)  # (batch_size*2, embedding_len/2)
-        PQ = AB__AB_MUT.view(-1, 2, int(embedding_len / 2))  # (batch_size, 2, embedding_len/2)
-        PQ = PQ.permute(0, 2, 1)  # (batch_size, embedding_len/2 , 2)
+        AB__AB_MUT = AB__AB_MUT.reshape(-1, 2 * embedding_dim)  # (batch_size*2, 2*embedding_dim)
+        AB__AB_MUT = self.fc_AB(AB__AB_MUT)  # (batch_size*2, embedding_dim/2)
+        PQ = AB__AB_MUT.view(-1, 2, int(embedding_dim / 2))  # (batch_size, 2, embedding_dim/2)
+        PQ = PQ.permute(0, 2, 1)  # (batch_size, embedding_dim/2 , 2)
         # Aggregate information from protein pairs p and q
-        PQ = PQ / torch.mean(self.relu(PQ), dim=1, keepdim=True)  # (batch_size, embedding_len/2 , 2)
-        PQ = self.attention_PQ(PQ, PQ, PQ, need_weights=False)[0]  # (batch_size, embedding_len/2,  2)
-        PQ = PQ.reshape(-1, embedding_len)  # (batch_size, embedding_len)
+        PQ = PQ / torch.mean(self.relu(PQ), dim=1, keepdim=True)  # (batch_size, embedding_dim/2 , 2)
+        PQ = self.attention_PQ(PQ, PQ, PQ, need_weights=False)[0]  # (batch_size, embedding_dim/2,  2)
+        PQ = PQ.reshape(-1, embedding_dim)  # (batch_size, embedding_dim)
 
         data = data.permute(0, 2, 1)  # [batch*3, 500, 1024] --> [batch*3, 1024, 500]
         conv1_out = self.conv0(data)  # output_dim --> [batch*3, 16, 64]
@@ -103,7 +102,7 @@ class MFFEN(nn.Module):
         conv3_in = conv3_in.view(-1, 128, 16)
         conv3_out = self.conv3(conv3_in)
 
-        fc_in = torch.cat((conv2_out.view(-1, embedding_len * 2), conv3_out.view(-1, embedding_len * 2), PQ), dim=1)  # [batch, embedding_len*5]
+        fc_in = torch.cat((conv2_out.view(-1, embedding_dim * 2), conv3_out.view(-1, embedding_dim * 2), PQ), dim=1)  # [batch, embedding_dim*5]
         fc_out = self.fc(fc_in)
         return fc_out
 
