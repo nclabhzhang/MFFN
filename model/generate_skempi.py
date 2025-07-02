@@ -99,8 +99,6 @@ def getMutChains(nameOfParts, Chains, mutPoints: str, startResNums=None, exchang
     newMutPoints = list(set(newMutPoints))
     if mutsNum != len(newMutPoints):
         print('repeated muts')
-        # 6149th instance: 2C5D_AB_CD;RA32E,KA34E,RB32E,KA34E;4E-06;   5E-09;298 -- has repeated mutations
-        # 6155th instance: 2C5D_AB_CD;EC30R,EC33R,ED30R,EC33R;1.36E-07;6E-09;298 -- has repeated mutations
     for i in range(len(newMutPoints)):
         newMutPoints[i] = newMutPoints[i].replace(':', '')
         if exchangePlace:
@@ -113,8 +111,6 @@ def getMutChains(nameOfParts, Chains, mutPoints: str, startResNums=None, exchang
     for mutPoint in newMutPoints:
         chain = mutPoint[1]
         chainNameDict[chain] += '_' + mutPoint
-    # if len(newMutPoints) > 1:
-    #     print('muts')
     nameOfParts_mut = [nameOfParts[0], nameOfParts[1]]
     for mutPoint in newMutPoints:
         chain = mutPoint[1]
