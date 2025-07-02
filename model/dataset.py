@@ -1,7 +1,8 @@
 from torch.utils.data import Dataset
 import joblib
 import random
-embedding_len = 1024
+embedding_dim = 1024
+hidden_size = 512
 
 class MyDataSet(Dataset):
     def __init__(self, tensor_affinity_path, is_train=False, multi_chain=False):
@@ -32,8 +33,8 @@ class MyDataSet(Dataset):
                 data[1], data[2] = data[2], data[1].clone()
         else:  # data is mean
             if self.multi_chain:
-                data[3*embedding_len:6*embedding_len], data[6*embedding_len:9*embedding_len]\
-                    = data[6*embedding_len:9*embedding_len], data[3*embedding_len:6*embedding_len].clone()
+                data[3*embedding_dim:6*embedding_dim], data[6*embedding_dim:9*embedding_dim]\
+                    = data[6*embedding_dim:9*embedding_dim], data[3*embedding_dim:6*embedding_dim].clone()
             else:
-                data[embedding_len:2*embedding_len], data[2*embedding_len:]\
-                    = data[2*embedding_len:], data[embedding_len:2*embedding_len].clone()
+                data[embedding_dim:2*embedding_dim], data[2*embedding_dim:]\
+                    = data[2*embedding_dim:], data[embedding_dim:2*embedding_dim].clone()
