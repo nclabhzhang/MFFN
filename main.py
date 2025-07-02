@@ -137,7 +137,6 @@ if __name__ == '__main__':
         res_best_pcc.append(best_pcc)
         res_best_rmse.append(best_rmse)
         del train_dataset, test_dataset, model, optimizer, train_loader, test_loader
-
         torch.cuda.empty_cache()
 
     print('Final result avg | pcc: %f, rmse: %f' % (sum(res_best_pcc) / len(res_best_pcc), sum(res_best_rmse) / len(res_best_rmse)))
