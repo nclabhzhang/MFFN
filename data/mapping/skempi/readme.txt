@@ -1,2 +1,0 @@
-As the protein database is quite large, only a few sample mapping files are provided here. 
-If additional files are required, you can download PDB-format files for processing from https://www.rcsb.org/.
