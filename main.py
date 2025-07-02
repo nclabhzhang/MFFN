@@ -9,7 +9,7 @@ from math import isnan
 
 from model.dataset import MyDataSet
 from model.utils import *
-from model.network import MFFEN
+from model.network import MFFN
 
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
@@ -99,7 +99,7 @@ def test_pcc(model, test_loader):
 
 def init_model_optimizer():
     set_random_seed(seed)
-    model = MFFEN()
+    model = MFFN()
     optimizer = torch.optim.Adam(params=model.parameters(), lr=learning_rate, weight_decay=1e-6)
     torch.save(model, init_model_path + '_good_model_seed' + str(seed) + '_init')
     torch.save(optimizer.state_dict(), init_opt_path + '_good_model_seed' + str(seed) + '_init')
