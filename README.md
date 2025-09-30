@@ -7,6 +7,7 @@ Please cite our paper if our datasets or code are helpful to you ~ 😊
 * Python 3.9
 * Pytorch 1.12.1
 * Transformers 4.21.3
+* sentencepiece 0.2.0
 
 ## Dataset
 * [SKEMPI] Given in the dataset folder.
