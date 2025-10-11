@@ -31,6 +31,6 @@ python main.py
 ```
 
 ## Acknowledgements
-MFFEN builds upon the source code from the project.
+MFFN builds upon the source code from the project.
 
 We thank their contributors and maintainers!
