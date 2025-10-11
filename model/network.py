@@ -68,7 +68,6 @@ class MFFN(nn.Module):
         A = CLS[:, 0]  # (batch_size, embedding_dim)
         B = CLS[:, 1]
         B_MUT = CLS[:, 2]
-        # Present in the form of [A-B,A-B',A-B,A-B'...], and the aggregate information from protein A and B
         AB__AB_MUT = torch.stack((torch.stack((A, B), dim=2), torch.stack((A, B_MUT), dim=2)), dim=1).view(-1, 2*embedding_dim, 2)  # (batch_size, 2*embedding_dim, 2)
         AB__AB_MUT = self.attention_AB(AB__AB_MUT, AB__AB_MUT, AB__AB_MUT, need_weights=False)[0]
         AB__AB_MUT = AB__AB_MUT.reshape(-1, 2 * embedding_dim)  # (batch_size*2, 2*embedding_dim)
@@ -105,4 +104,5 @@ class MFFN(nn.Module):
         fc_in = torch.cat((conv2_out.view(-1, embedding_dim * 2), conv3_out.view(-1, embedding_dim * 2), PQ), dim=1)  # [batch, embedding_dim*5]
         fc_out = self.fc(fc_in)
         return fc_out
+
 
