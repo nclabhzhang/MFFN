@@ -280,8 +280,8 @@ def generate_10_folds_dataset(chain_DDG_list, root_path, postfix=''):
             chain_DDG_list_train[fold_i] += chain_DDG_list_folds[i]
         for i in range(fold_i+1, 10):
             chain_DDG_list_train[fold_i] += chain_DDG_list_folds[i]
-    dump(chain_DDG_list_train, root_path+'chain_DDG_list_train'+postfix)
-    dump(chain_DDG_list_test, root_path+'chain_DDG_list_test'+postfix)
+    dump(chain_DDG_list_train, root_path+'/'+'chain_DDG_list_train'+postfix)
+    dump(chain_DDG_list_test, root_path+'/'+'chain_DDG_list_test'+postfix)
 
 def get_tensor_DDG_list(chain_DDG_path, embedding_path, dump_path):
     device = torch.device(f'cuda' if torch.cuda.is_available() else 'cpu')
@@ -306,10 +306,12 @@ if __name__ == '__main__':
     os.environ['CUDA_VISIBLE_DEVICES'] = '0'   # select gpu
 
     # # processing embedding_dict
+    # generateProcessedCSV('../data/skempi_v2.csv', '../data/processed_v2.CSV')
+    # generateSequenceData('../data/processed_v2.CSV', '../data/mapping', '../data/SequenceData_skempi')
     # generate_embedding_dict('../data/SequenceData_skempi', f'../data/embedding_dict_skempi')
 
     # # processing skempi-1131
-    # chain_DDG_list = get_raw_chain_DDG_list_skempi1131('../data/selectExpDDG')
+    # chain_DDG_list = get_raw_chain_DDG_list_skempi1131('../data/skempi_1131')
     # generate_10_folds_dataset(chain_DDG_list, '../data/S1131')
     # get_tensor_DDG_list('../data/S1131/chain_DDG_list_train', '../data/embedding_dict_skempi',
     #                     f'../data/S1131/tensor_DDG_list_train')
@@ -317,8 +319,6 @@ if __name__ == '__main__':
     #                     f'../data/S1131/tensor_DDG_list_test')
 
     # # processing skempi-2398
-    # generateProcessedCSV('../data/skempi_v2.csv', '../data/processed_v2.CSV')
-    # generateSequenceData('../data/processed_v2.CSV', '../data/mapping', '../data/SequenceData_skempi')
     # chain_DDG_list = get_raw_chain_DDG_list_skempi2398('../data/SequenceData_skempi')
     # generate_10_folds_dataset(chain_DDG_list, '../data/S2398')
     # get_tensor_DDG_list('../data/S2398/chain_DDG_list_train', f'../data/embedding_dict_skempi',
