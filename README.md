@@ -41,8 +41,6 @@ Hao Zhang, Yang Liu, Limin Yu, Zejie Wang, Yifei liu, and Maozu Guo, "Multi-scal
   booktitle={2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)}, 
   title={Multi-scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations}, 
   year={2025},
-  volume={},
-  number={},
   pages={},
   doi={}}
 ```
