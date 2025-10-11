@@ -30,7 +30,7 @@ python process_data.py
 python main.py
 ```
 
-## Acknowledgements
-MFFN builds upon the source code from the project.
+## Cite
+Please cite our paper if our datasets or code are helpful to you.
 
-We thank their contributors and maintainers!
+Hao Zhang, Yang Liu, Limin Yu, Zejie Wang, Yifei liu, and Maozu Guo, "Multi-scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations," in IEEE International Conference on Bioinformatics and Biomedicine, 2025.
