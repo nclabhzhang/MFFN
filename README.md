@@ -33,14 +33,16 @@ python main.py
 ## Cite
 Please cite our paper if our datasets or code are helpful to you.
 
-Hao Zhang, Yang Liu, Limin Yu, Zejie Wang, Yifei liu, and Maozu Guo, "Multi-scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations," 2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM), Wuhan, China, 2025.
+H. Zhang, Y. Liu, L. Yu, Z. Wang, Y. Liu and M. Guo, "Multi-Scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations," 2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM), Wuhan, China, 2025, pp. 218-223, doi: 10.1109/BIBM66473.2025.11356932.
 
 ```
 @INPROCEEDINGS{zhang2025mffn,
-  author={Hao Zhang, Yang Liu, Limin Yu, Zejie Wang, Yifei liu, and Maozu Guo},
+  author={Zhang, Hao and Liu, Yang and Yu, Limin and Wang, Zejie and Liu, Yifei and Guo, Maozu},
   booktitle={2025 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)}, 
-  title={Multi-scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations}, 
+  title={Multi-Scale Feature Fusion Network for the Prediction of Protein-Protein Binding Affinity Changes upon Mutations}, 
   year={2025},
-  pages={},
-  doi={}}
+  volume={},
+  number={},
+  pages={218-223},
+  doi={10.1109/BIBM66473.2025.11356932}}
 ```
